@@ -1,17 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
-
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authroutes')
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 
 // Routes
 app.use('/api/applicants', require('./routes/applicants'));
 app.use('/api/documents', require('./routes/documents'));
+app.use('/api',authRoutes)
 
 // html 
 app.get('/', (req, res)=>{
